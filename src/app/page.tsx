@@ -34,7 +34,7 @@ export default function Home() {
     <main className={styles.mainContainer}>
       <div className={styles.contentContainer}>
 
-        <Image alt='' src='/backgroundtest.png' width={1920} height={1080} className={styles.systemLogo} priority />
+        <Image alt='' src='/backteste.jpg' width={1920} height={1080} className={styles.systemLogo} priority quality={100}/>
         <div className={styles.loginForm}>
 
           <LoginForm userAuthorities={loggedUser != undefined ? loggedUser.authorities.map((item: any) => item.authority) : []} />

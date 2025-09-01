@@ -29,7 +29,7 @@ export default function LoginForm({ userAuthorities }: LoginFormProps) {
 
         if (email == '' && password == '') {
             setShowErrorMessage(true)
-            setErrorMessage("Preenxa os campos corretamente")
+            setErrorMessage("Preencha os campos corretamente")
 
             setTimeout(() => {
                 setShowErrorMessage(false)
@@ -69,7 +69,38 @@ export default function LoginForm({ userAuthorities }: LoginFormProps) {
     }
 
     return (
-        <form className={styles.accessForm} data-aos="fade-right">
+        <form className={styles.accessForm} data-aos="fade-right"
+            onMouseMove={(e) => {
+                const rect = (e.currentTarget as HTMLFormElement).getBoundingClientRect();
+                const x = e.clientX - rect.left; // posição do mouse dentro do form
+                const y = e.clientY - rect.top;
+
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+
+                // calcular deslocamento relativo ao centro (-1 a 1)
+                const offsetX = (x - centerX) / centerX;
+                const offsetY = (y - centerY) / centerY;
+
+                // intensidade do efeito
+                const intensity = 10; // quanto maior, mais o box-shadow "segue" o mouse
+
+                // criar box-shadow dinâmico
+                const shadowX = offsetX * intensity;
+                const shadowY = offsetY * intensity;
+                const blur = 40;
+
+                (e.currentTarget as HTMLFormElement).style.boxShadow = `
+      ${shadowX}px ${shadowY}px ${blur}px #7f139dde,
+      0 8px 32px rgba(0, 0, 0, 0.25)
+    `;
+            }}
+            onMouseLeave={(e) => {
+                // resetar sombra quando o mouse sair
+                (e.currentTarget as HTMLFormElement).style.boxShadow =
+                    '0 8px 32px rgba(0, 0, 0, 0.25)';
+            }}
+        >
 
             <h2 style={{ fontWeight: 400 }}> Realizar Login</h2>
 
@@ -87,6 +118,7 @@ export default function LoginForm({ userAuthorities }: LoginFormProps) {
                         placeholder={"Email"}
                         value={email}
                         handleUpdate={(event: any) => setEmail(event.currentTarget.value)}
+                        fontColor={'#fff'}
                     />
 
                     <Image alt='' src='/email.png' width={26} height={26} className={styles.emailBtn} priority />
@@ -101,6 +133,7 @@ export default function LoginForm({ userAuthorities }: LoginFormProps) {
                         placeholder={"Senha"}
                         value={password}
                         handleUpdate={(event: any) => setPassword(event.currentTarget.value)}
+                        fontColor={'#fff'}
                     />
                     {
                         isVisiblePassword ?
