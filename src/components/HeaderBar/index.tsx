@@ -1,0 +1,60 @@
+'use client'
+import { useEffect, useState } from "react";
+import Image from "next/image"
+import styles from "./page.module.scss"
+import Link from "next/link";
+
+interface UserData {
+    id: string,
+    name: string,
+    role: string,
+    email: string,
+    enabled: boolean
+}
+
+export default function HeaderBar() {
+    const [showMenu, setShowMenu] = useState(false);
+    const [user, setUser] = useState<UserData | null>(null);
+
+    useEffect(() => {
+        const storedUser = sessionStorage.getItem("authUser");
+        if (storedUser) {
+            setUser(JSON.parse(storedUser));
+        }
+    }, []);
+
+    return (
+        <main className={styles.mainContainer}>
+            <Link href={'/'}>
+                <Image alt='' src='/returnIcon.png' width={25} height={25} priority className={styles.returnIcon} />
+            </Link>
+
+            <div className={styles.titleContainer}>
+                <h2 className={styles.titleText}>TCC Project</h2>
+            </div>
+
+            <div className={styles.userMenuContainer}>
+                <Image
+                    alt=''
+                    src='/personIcon.png'
+                    width={30}
+                    height={30}
+                    className={styles.userIcon}
+                    onClick={() => setShowMenu(!showMenu)}
+                />
+
+                {showMenu && user && (
+                    <div className={styles.dropdownMenu}>
+                        <div>
+                            <div className={styles.userDataName}><Image alt='' src='/personIcon.png' width={25} height={25} priority />: {user.name}</div>
+
+                        </div>
+                        <div>
+                            <div className={styles.userDataEmail}> <Image alt='' src='/email.png' width={20} height={20} priority className={styles.emailIcon}/>: {user.email}</div>
+                        </div>
+                    </div>
+                )}
+            </div>
+        </main>
+    )
+}

@@ -1,6 +1,8 @@
 'use client'
 import { useState } from "react";
 import styles from "./page.module.scss";
+import HeaderBar from "@/components/HeaderBar";
+import DriveTable from "@/components/DriveTable";
 
 interface GFile {
   id: string;
@@ -14,8 +16,8 @@ export default function HubPage() {
   const [files, setFiles] = useState<GFile[]>([]);
   const [loading, setLoading] = useState(false);
   const [currentFolderId, setCurrentFolderId] = useState<string | null>(null);
-  const [folderStack, setFolderStack] = useState<{id: string, name: string}[]>([]);
-  const [hasLoaded, setHasLoaded] = useState(false); // indica se já carregou arquivos
+  const [folderStack, setFolderStack] = useState<{ id: string, name: string }[]>([]);
+  const [hasLoaded, setHasLoaded] = useState(false);
 
   const fetchFiles = (folderId?: string) => {
     setLoading(true);
@@ -54,48 +56,13 @@ export default function HubPage() {
 
   return (
     <main className={styles.mainContainer}>
-      <h3>Hub de Arquivos</h3>
-
-      {!hasLoaded && (
-        <button className={styles.backButton} onClick={() => fetchFiles()}>
-          Carregar arquivos
-        </button>
-      )}
-
-      {folderStack.length > 0 && (
-        <button className={styles.backButton} onClick={goBack}>← Voltar</button>
-      )}
-
-      {loading && <p>Carregando arquivos...</p>}
-      {hasLoaded && !loading && files.length === 0 && <p>Nenhum arquivo encontrado.</p>}
-
-      <div className={styles.cardsContainer}>
-        {files.map(file => (
-          <div
-            key={file.id}
-            className={`${styles.card} ${file.mimeType === "application/vnd.google-apps.folder" ? styles.folder : ""}`}
-            onClick={() => {
-              if (file.mimeType === "application/vnd.google-apps.folder") enterFolder(file);
-            }}
-          >
-            <div className={styles.fileName}>
-              {file.mimeType === "application/vnd.google-apps.folder" ? "📁 " : "📄 "}
-              {file.name}
-            </div>
-
-            {file.mimeType !== "application/vnd.google-apps.folder" && (
-              <div className={styles.links}>
-                {file.webViewLink && (
-                  <a href={file.webViewLink} target="_blank" rel="noreferrer">Visualizar</a>
-                )}
-                {file.webContentLink && (
-                  <a href={file.webContentLink} target="_blank" rel="noreferrer">Baixar</a>
-                )}
-              </div>
-            )}
-          </div>
-        ))}
+      <HeaderBar></HeaderBar>
+      <div className={styles.contentContainer}>
+        <div className={styles.driveTableContainer}>
+          <DriveTable></DriveTable>
+        </div>
       </div>
+
     </main>
   );
 }

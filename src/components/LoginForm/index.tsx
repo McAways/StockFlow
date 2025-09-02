@@ -57,6 +57,7 @@ export default function LoginForm({ userAuthorities }: LoginFormProps) {
             sessionStorage.setItem('token', res.data)
             setIsLoading(false)
             const authUser = await UserService.getAuthenticatedUser(res.data)
+            sessionStorage.setItem('authUser', JSON.stringify(authUser.data))
             const userAuthorities = authUser.data.authorities.map((item: any) => item.authority)
 
             if (userAuthorities.includes('ROLE_POINT_USER')) {

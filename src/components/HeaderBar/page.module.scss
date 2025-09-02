@@ -1,0 +1,82 @@
+.mainContainer {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: #1e1e1e;
+    border-bottom: 2px solid #fff;
+    width: 100%;
+    height: 50px;
+}
+
+.userIcon,
+.returnIcon {
+    margin-left: 20px;
+    transition: 0.3s;
+
+    &:hover {
+        cursor: pointer;
+        filter: invert(1);
+    }
+}
+
+.userIcon {
+    margin-left: 500px;
+}
+
+.titleContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 600px;
+}
+
+.titleText {
+    font-weight: bold;
+}
+
+.dropdownMenu {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    right: 0;
+    top: 40px;
+    height: 100px;
+    color: #000;
+    border-radius: 8px;
+    border: 2px solid #4b276dbc;
+    padding: 12px;
+    min-width: 200px;
+    box-shadow: 0 4px 12px #4b276dbc;
+    z-index: 100;
+
+    background: #ffffff4c;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+
+.userDataName {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    border-bottom: 2px solid #fff;
+    background-color: transparent;
+    font-weight: bold;
+
+}
+
+.userDataEmail {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    justify-content: flex-start;
+    border-bottom: 2px solid #fff;
+    background-color: transparent;
+    font-weight: bold;
+    margin-top: 20px;
+
+}
+
+.emailIcon {
+    margin-left: 3px;
+}
