@@ -1,0 +1,87 @@
+.salesDashboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 60px;
+}
+
+.dropzone {
+  display: flex;
+  align-items: center;
+  border: 2px dashed #9ca3af;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+  max-width: 600px;
+  transition: all 0.2s ease-in-out;
+  height: 373px;
+
+  &:hover {
+    color: #fff;
+    background-color: #ffffff43;
+    border-color: #f63bf3;
+    box-shadow: 0 2px 6px #f63bf3;
+  }
+
+  p {
+    margin: 0;
+    font-size: 16px;
+    color: #fff;
+  }
+}
+
+.chartsFlex {
+  display: flex;
+  flex-direction: column;
+  /* empilhado no mobile */
+  gap: 2rem;
+  width: 100%;
+  max-width: 900px;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+    /* lado a lado no desktop */
+    flex-wrap: wrap;
+    /* quebra se tiver muitos */
+    justify-content: space-between;
+  }
+}
+
+.chartCard {
+  flex: 1;
+  min-width: 280px;
+  background: #ffffff;
+  border-radius: 1rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  position: relative;
+
+  .cardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+
+    h2 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin: 0;
+      color: #111827;
+    }
+  }
+
+  .closeButton {
+    background: transparent;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: #6b7280;
+    transition: color 0.2s;
+
+    &:hover {
+      color: #ef4444; // vermelho
+    }
+  }
+}

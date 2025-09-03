@@ -1,86 +1,86 @@
 'use client'
-import { useState } from "react";
-import styles from "./page.module.scss";
-import { motion } from "framer-motion";
-import { FaFolder, FaFilePdf, FaFileWord, FaFileExcel, FaFileImage, FaFileAlt } from "react-icons/fa";
+import { useState } from "react"
+import styles from "./page.module.scss"
+import { motion } from "framer-motion"
+import { FaFolder, FaFilePdf, FaFileWord, FaFileExcel, FaFileImage, FaFileAlt } from "react-icons/fa"
 
 
 interface GFile {
-    id: string;
-    name: string;
-    mimeType: string;
-    webViewLink?: string;
-    webContentLink?: string;
+    id: string
+    name: string
+    mimeType: string
+    webViewLink?: string
+    webContentLink?: string
 }
 
 function getFileIcon(mimeType: string) {
     switch (mimeType) {
         case "application/vnd.google-apps.folder":
-            return <FaFolder color="#fbc02d" />;
+            return <FaFolder color="#fbc02d" />
 
         case "application/pdf":
-            return <FaFilePdf color="#e53935" />;
+            return <FaFilePdf color="#e53935" />
 
         case "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
         case "application/msword":
-            return <FaFileWord color="#1e88e5" />;
+            return <FaFileWord color="#1e88e5" />
 
         case "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet":
         case "application/vnd.ms-excel":
-            return <FaFileExcel color="#43a047" />;
+            return <FaFileExcel color="#43a047" />
 
         case "image/png":
         case "image/jpeg":
         case "image/jpg":
         case "image/gif":
-            return <FaFileImage color="#8e24aa" />;
+            return <FaFileImage color="#8e24aa" />
 
         default:
-            return <FaFileAlt color="#757575" />;
+            return <FaFileAlt color="#757575" />
     }
 }
 
 export default function DriveTable() {
-    const [files, setFiles] = useState<GFile[]>([]);
-    const [loading, setLoading] = useState(false);
-    const [currentFolderId, setCurrentFolderId] = useState<string | null>(null);
-    const [folderStack, setFolderStack] = useState<{ id: string; name: string }[]>([]);
-    const [hasLoaded, setHasLoaded] = useState(false);
+    const [files, setFiles] = useState<GFile[]>([])
+    const [loading, setLoading] = useState(false)
+    const [currentFolderId, setCurrentFolderId] = useState<string | null>(null)
+    const [folderStack, setFolderStack] = useState<{ id: string; name: string }[]>([])
+    const [hasLoaded, setHasLoaded] = useState(false)
 
     const fetchFiles = (folderId?: string) => {
-        setLoading(true);
-        const query = folderId ? `?folderId=${folderId}` : "";
+        setLoading(true)
+        const query = folderId ? `?folderId=${folderId}` : ""
         fetch(`/api/list${query}`)
             .then(async (res) => {
                 if (!res.ok) {
-                    const text = await res.text();
-                    console.error("Erro na API:", res.status, text);
-                    return [];
+                    const text = await res.text()
+                    console.error("Erro na API:", res.status, text)
+                    return []
                 }
-                return res.json();
+                return res.json()
             })
             .then((data) => {
-                setFiles(Array.isArray(data) ? data : []);
-                setHasLoaded(true);
+                setFiles(Array.isArray(data) ? data : [])
+                setHasLoaded(true)
             })
             .catch((err) => console.error(err))
-            .finally(() => setLoading(false));
-    };
+            .finally(() => setLoading(false))
+    }
 
     const enterFolder = (folder: GFile) => {
-        setFolderStack((prev) => [...prev, { id: folder.id, name: folder.name }]);
-        setCurrentFolderId(folder.id);
-        fetchFiles(folder.id);
-    };
+        setFolderStack((prev) => [...prev, { id: folder.id, name: folder.name }])
+        setCurrentFolderId(folder.id)
+        fetchFiles(folder.id)
+    }
 
     const goBack = () => {
-        const newStack = [...folderStack];
-        newStack.pop();
-        setFolderStack(newStack);
-        const prevFolder = newStack.length > 0 ? newStack[newStack.length - 1].id : null;
-        setCurrentFolderId(prevFolder);
-        fetchFiles(prevFolder || undefined);
-    };
+        const newStack = [...folderStack]
+        newStack.pop()
+        setFolderStack(newStack)
+        const prevFolder = newStack.length > 0 ? newStack[newStack.length - 1].id : null
+        setCurrentFolderId(prevFolder)
+        fetchFiles(prevFolder || undefined)
+    }
 
     return (
         <main className={styles.mainContainer}>
@@ -118,7 +118,7 @@ export default function DriveTable() {
                             className={`${styles.card} ${file.mimeType === "application/vnd.google-apps.folder" ? styles.folder : ""
                                 }`}
                             onClick={() => {
-                                if (file.mimeType === "application/vnd.google-apps.folder") enterFolder(file);
+                                if (file.mimeType === "application/vnd.google-apps.folder") enterFolder(file)
                             }}
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
@@ -150,5 +150,5 @@ export default function DriveTable() {
                 </div>
             )}
         </main>
-    );
+    )
 }

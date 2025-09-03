@@ -1,8 +1,8 @@
 'use client'
-import { useEffect, useState } from "react";
+import { useEffect, useState } from "react"
 import Image from "next/image"
 import styles from "./page.module.scss"
-import Link from "next/link";
+import Link from "next/link"
 
 interface UserData {
     id: string,
@@ -13,15 +13,15 @@ interface UserData {
 }
 
 export default function HeaderBar() {
-    const [showMenu, setShowMenu] = useState(false);
-    const [user, setUser] = useState<UserData | null>(null);
+    const [showMenu, setShowMenu] = useState(false)
+    const [user, setUser] = useState<UserData | null>(null)
 
     useEffect(() => {
-        const storedUser = sessionStorage.getItem("authUser");
+        const storedUser = sessionStorage.getItem("authUser")
         if (storedUser) {
-            setUser(JSON.parse(storedUser));
+            setUser(JSON.parse(storedUser))
         }
-    }, []);
+    }, [])
 
     return (
         <main className={styles.mainContainer}>
