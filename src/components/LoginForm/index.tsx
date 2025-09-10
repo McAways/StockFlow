@@ -92,7 +92,7 @@ export default function LoginForm({ userAuthorities }: LoginFormProps) {
                 const blur = 40;
 
                 (e.currentTarget as HTMLFormElement).style.boxShadow = `
-      ${shadowX}px ${shadowY}px ${blur}px #7f139dde,
+      ${shadowX}px ${shadowY}px ${blur}px #003B69,
       0 8px 32px rgba(0, 0, 0, 0.25)
     `;
             }}
