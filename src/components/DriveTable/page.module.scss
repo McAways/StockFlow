@@ -1,6 +1,6 @@
 .mainContainer {
   width: 300px; // largura fixa do "quadrado branco"
-  height: 400px; // ocupa a altura útil
+  height: 520px; // ocupa a altura útil
   border: 2px solid #fff;
   display: flex;
   flex-direction: column;
@@ -9,7 +9,7 @@
   margin: 1rem;
   color: #fff;
 
-    background: rgba(255, 255, 255, 0.083);
+  background: rgba(255, 255, 255, 0.083);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-radius: 16px;
@@ -85,8 +85,8 @@
 
   &:hover {
     transform: translateY(-2px);
-    background: #633b88;
-    box-shadow: 0px 4px 10px #633b88;
+    background: #3b6388;
+    box-shadow: 0px 4px 10px #3b5f88;
     cursor: pointer;
   }
 
@@ -115,26 +115,27 @@
 
     a {
       font-size: 0.75rem;
-      color: #9d7ed5;
+      color: #e4e4e4;
       text-decoration: none;
 
       &:hover {
         text-decoration: underline;
+        color: #00ffd5f6;
       }
     }
   }
 }
 
 .folder {
-  background: #4f3464;
-  border-color: #975dce;
+  background: #3b6388;
+  border-color: #5d92ce;
 }
 
 .loader {
   width: 32px;
   height: 32px;
   border: 3px solid #000000aa;
-  border-top-color: #994ce2;
+  border-top-color: #3b6388;
   border-radius: 50%;
   margin: 1.5rem auto;
 }

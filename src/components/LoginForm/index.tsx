@@ -25,46 +25,47 @@ export default function LoginForm({ userAuthorities }: LoginFormProps) {
     const [isLoading, setIsLoading] = useState(false)
 
     async function handleLogin(event: any) {
-        event.preventDefault()
+        event.preventDefault();
 
-        if (email == '' && password == '') {
-            setShowErrorMessage(true)
-            setErrorMessage("Preencha os campos corretamente")
-
+        if (!email || !password) {
+            setShowErrorMessage(true);
+            setErrorMessage("Preencha os campos corretamente");
             setTimeout(() => {
-                setShowErrorMessage(false)
-                setErrorMessage('')
-            }, 3000)
-
-            return
+                setShowErrorMessage(false);
+                setErrorMessage("");
+            }, 3000);
+            return;
         }
 
-        setShowErrorMessage(false)
-        setIsLoading(true)
-        const res = await UserService.logon(email, password)
+        setShowErrorMessage(false);
+        setIsLoading(true);
 
-        if (res.status != 200) {
-            setIsLoading(false)
-            setShowErrorMessage(true)
-            setErrorMessage("Usuário ou senha incorreta")
+        const res = await UserService.logon(email, password);
 
+        if (res.status !== 200) {
+            setIsLoading(false);
+            setShowErrorMessage(true);
+            setErrorMessage("Usuário ou senha incorreta");
             setTimeout(() => {
-                setShowErrorMessage(false)
-                setErrorMessage('')
-            }, 3000)
-        }
-        else {
-            sessionStorage.setItem('token', res.data)
-            setIsLoading(false)
-            const authUser = await UserService.getAuthenticatedUser(res.data)
-            sessionStorage.setItem('authUser', JSON.stringify(authUser.data))
-            const userAuthorities = authUser.data.authorities.map((item: any) => item.authority)
+                setShowErrorMessage(false);
+                setErrorMessage("");
+            }, 3000);
+        } else {
+            const { token, username, role } = res.data;
 
-            if (userAuthorities.includes('ROLE_POINT_USER')) {
-                router.push('/hubPage')
-            }
-            else {
-                router.push('/hubPage')
+            sessionStorage.setItem("token", token);
+            sessionStorage.setItem("role", role);
+            sessionStorage.setItem("username", username);
+
+            setIsLoading(false);
+
+            const authUser = await UserService.getAuthenticatedUser(token);
+            sessionStorage.setItem("authUser", JSON.stringify(authUser.data));
+
+            if (role === "ROLE_ADMIN") {
+                router.push("/hubPage");
+            } else {
+                router.push("/hubPage");
             }
         }
     }
@@ -73,20 +74,17 @@ export default function LoginForm({ userAuthorities }: LoginFormProps) {
         <form className={styles.accessForm} data-aos="fade-right"
             onMouseMove={(e) => {
                 const rect = (e.currentTarget as HTMLFormElement).getBoundingClientRect();
-                const x = e.clientX - rect.left; // posição do mouse dentro do form
+                const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
 
                 const centerX = rect.width / 2;
                 const centerY = rect.height / 2;
 
-                // calcular deslocamento relativo ao centro (-1 a 1)
                 const offsetX = (x - centerX) / centerX;
                 const offsetY = (y - centerY) / centerY;
 
-                // intensidade do efeito
-                const intensity = 10; // quanto maior, mais o box-shadow "segue" o mouse
+                const intensity = 10;
 
-                // criar box-shadow dinâmico
                 const shadowX = offsetX * intensity;
                 const shadowY = offsetY * intensity;
                 const blur = 40;
@@ -97,13 +95,21 @@ export default function LoginForm({ userAuthorities }: LoginFormProps) {
     `;
             }}
             onMouseLeave={(e) => {
-                // resetar sombra quando o mouse sair
                 (e.currentTarget as HTMLFormElement).style.boxShadow =
                     '0 8px 32px rgba(0, 0, 0, 0.25)';
             }}
         >
+            <div className={styles.titleStyle}>
 
-            <h2 style={{ fontWeight: 400 }}> Realizar Login</h2>
+                <h2 style={{ fontWeight: 400 }}> StockFlow Login</h2>
+
+                <Image
+                    alt=''
+                    src='/stockFlow.png'
+                    width={30}
+                    height={30}
+                />
+            </div>
 
             <div className={styles.inputContainer}>
 

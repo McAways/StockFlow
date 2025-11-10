@@ -1,10 +1,10 @@
 .mainContainer {
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
-  background: #2a024a;
-  background: radial-gradient(circle, rgba(42, 2, 74, 1) 0%, rgba(71, 3, 110, 1) 100%);
+  align-items: center;
+  background: radial-gradient(circle at top, #010729 0%, #031141 100%);
+  min-height: 100vh;
+  justify-content: flex-start;
 }
 
 .mainContainerTitle {
@@ -12,6 +12,19 @@
   position: fixed;
   top: 0;
   z-index: 10;
+}
+
+.backgroundFilter {
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+}
+
+.systemLogo {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  opacity: .3;
 }
 
 .stageTitle2,
@@ -22,17 +35,20 @@
   justify-content: center;
   background-color: transparent;
   margin-top: 70px;
+  margin-bottom: 20px;
   color: #fff;
 }
 
 .stageTitle2 {
   margin-top: 20px;
+  margin-bottom: none;
 }
 
 .contentContainer {
   display: flex;
   justify-content: space-around;
   overflow-y: auto;
+  margin-bottom: 20px;
 }
 
 .driveTableContainer {
@@ -41,4 +57,11 @@
   border-radius: 8px;
   width: 300px;
   height: 600px;
+}
+
+.productComponentContainer {
+  display: flex;
+  margin-top: 20px;
+  gap: 20px;
+  border-radius: 8px;
 }

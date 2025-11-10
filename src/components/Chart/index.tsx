@@ -63,7 +63,6 @@ export default function SalesDashboard() {
 
   return (
     <div className={styles.salesDashboard}>
-      {/* Dropzone só aparece se não houver dados */}
       {dados.length === 0 && (
         <div {...getRootProps()} className={styles.dropzone}>
           <input {...getInputProps()} />
@@ -71,7 +70,6 @@ export default function SalesDashboard() {
         </div>
       )}
 
-      {/* Gráficos */}
       {dados.length > 0 && (
         <div className={styles.chartsFlex}>
           <div className={styles.chartCard}>

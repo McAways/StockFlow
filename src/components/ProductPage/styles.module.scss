@@ -1,0 +1,22 @@
+.mainContainer {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    width: 1200px;
+    height: 600px;
+}
+
+.productManager {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.productList {
+    display: flex;
+    margin-left: 60px;
+
+}
+
+.salesControl {
+    display: flex;
+}

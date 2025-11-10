@@ -14,7 +14,7 @@ export default function LoadingDots() {
             background: "#fff",
           }}
           animate={{
-            y: [0, -10, 0], // sobe e desce, mas sempre volta ao mesmo ponto base
+            y: [0, -10, 0],
           }}
           transition={{
             duration: 0.6,
