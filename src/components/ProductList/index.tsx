@@ -20,7 +20,7 @@ export default function ProductList({ products, setProducts, onEdit }: ProductLi
             products.map((product, index) => (
               <div key={product.id ?? `p-${index}`} className={styles.card}>
                 {product.imageBase64 && (
-                  <img src={product.imageBase64} alt={product.name} />
+                  <img src={product.imageBase64} alt={product.name} height={200} width={200}/>
                 )}
 
                 <h3>{product.name}</h3>
