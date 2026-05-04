@@ -1,3 +1,5 @@
+## Put the information for the google drive link to work, it will be needed to be configured the google account manually.
+
 {
   "type": "service_account",
   "project_id": "tccproject-470816",
